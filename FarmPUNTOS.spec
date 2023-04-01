@@ -12,7 +12,7 @@ block_cipher = None
 
 
 a = Analysis(
-    ['MicrosoftRewardsBot.py'],
+    ['Bot.py'],
     pathex=[],
     binaries=binaries,
     datas=datas,
