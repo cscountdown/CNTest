@@ -3,7 +3,7 @@ name: Deploy-2
 on:
   workflow_dispatch:
   schedule:
-    - cron: '15 14 * * *' # every day at 6:00 am UTC
+    - cron: '0 13 * * *' # every day at 6:00 am UTC
 
 jobs:
   deploy:
@@ -37,7 +37,7 @@ jobs:
           username: ${{ secrets.OVPN_USERNAME }}
           password: ${{ secrets.OVPN_PASSWORD }} 
       - name: Run Script
-        run: timeout 5400 python MicrosoftRewardsBot.py --accounts ${{ secrets.KEYS2 }} --headless --fast --discord ${{ secrets.webhook }} --privacy --wfd ${{ github.workflow }}
+        run: timeout 5400 python Bot.py --accounts ${{ secrets.KEYS2 }} --headless --fast --discord ${{ secrets.webhook }} --privacy --wfd ${{ github.workflow }}
       - name: Retry
         if: ${{ failure() }}
-        run: timeout 1800 python MicrosoftRewardsBot.py --accounts ${{ secrets.KEYS2 }} --headless --fast --privacy --wfd ${{ github.workflow }}
+        run: timeout 1800 python Bot.py --accounts ${{ secrets.KEYS2 }} --headless --fast --privacy --wfd ${{ github.workflow }}
