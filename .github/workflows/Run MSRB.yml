@@ -53,11 +53,6 @@ jobs:
         sudo apt-get install -y xvfb
         pip install -r requirements.txt
 
-    - name: Wait for Test
-      uses: fountainhead/action-wait-for-check@v1.1.0
-      with:
-        checkName: test
-        token: ${{ github.token }}
     - name: Checkout
       uses: actions/checkout@v3
     - name: Install OpenVPN
