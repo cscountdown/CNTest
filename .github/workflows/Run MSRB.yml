@@ -52,7 +52,26 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y xvfb
         pip install -r requirements.txt
-        
+
+    - name: Wait for Test
+      uses: fountainhead/action-wait-for-check@v1.1.0
+      with:
+        checkName: test
+        token: ${{ github.token }}
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Install OpenVPN
+      run: |
+        sudo apt update
+        sudo apt install -y openvpn openvpn-systemd-resolved
+    - name: Connect to VPN
+      uses: "kota65535/github-openvpn-connect-action@v2"
+      with:
+        config_file: Canada-udp.ovpn
+        username: ${{ secrets.OVPN_USERNAME }}
+        password: ${{ secrets.OVPN_PASSWORD }}
+
+
     - name: Set secrets variable as environment variable
       run: echo "$ACCOUNT" > accounts.json
 
